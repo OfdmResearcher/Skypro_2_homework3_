@@ -2,6 +2,8 @@ package com.skypro;
 
 public class ValidatorService {
 
+    private static final String VALIDATE_SYMBOLS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789";
+
     private ValidatorService() {
 
     }
@@ -21,17 +23,17 @@ public class ValidatorService {
             throw new WrongLoginException("The length of login should be, at least 1 character and less, than 20 characters");
         }
         if (password == null || confirmPassword == null || password.length() >= 20 || confirmPassword.length() >= 20) {
-            throw new WrongLoginException("The length of password should be, at least 1 character and less, than 21 characters");
+            throw new WrongPasswordException("The length of password should be, at least 1 character and less, than 21 characters");
         }
 
         for (int i = 0; i < login.length(); i++) {
-            if (!String.valueOf(login.charAt(i)).contains("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789")) {
+            if (!VALIDATE_SYMBOLS.contains(String.valueOf(login.charAt(i)))) {
                 throw new WrongLoginException("Please, use only latin alphabet, _ and numbers");
             }
         }
 
         for (int i = 0; i < password.length(); i++) {
-            if (!String.valueOf(password.charAt(i)).contains("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789")) {
+            if (!VALIDATE_SYMBOLS.contains(String.valueOf(password.charAt(i)))) {
                 throw new WrongPasswordException("Please, use only latin alphabet, _ and numbers");
             }
         }
